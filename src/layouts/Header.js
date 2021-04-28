@@ -1,17 +1,20 @@
 import React from 'react';
-
-import { Route, Switch } from 'react-router-dom'
-import HeaderLoggedOut from '../components/HeaderLoggedOut'
-import HeaderLogged from '../components/HeaderLogged'
-
+import {
+    Image,
+    Flex,
+    Button,
+    Text,
+    Center,
+} from '@chakra-ui/react';
 
 const Header = () => {
     return (
-        <>
-            <Route path="/" exact component={HeaderLoggedOut} />
-            <Route path="/aktualnosci" component={HeaderLogged} />
-            <Route path="/kalendarz" component={HeaderLogged} />
-        </>
+        <Flex bg="green" flexBasis="100%" direction="row" alignItems="center">
+            <Center w="100%">
+                <Text fontSize="4xl" paddingRight="70%" color="white" >SportSystem</Text>
+                <Button size="lg">Zaloguj się</Button>
+            </Center>
+        </Flex>
     );
 }
 

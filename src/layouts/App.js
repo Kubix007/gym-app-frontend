@@ -5,7 +5,7 @@ import {
   Flex,
   theme,
 } from '@chakra-ui/react';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 import Header from '../layouts/Header'
 import Navigation from '../layouts/Navigation'
 import Page from '../layouts/Page'
@@ -20,7 +20,7 @@ function App() {
     <Router>
       <ChakraProvider theme={theme}>
         <Flex minH="100vh" direction="column" >
-          <Flex minH="7vh" maxH="7vh" borderBottom="1px">
+          <Flex minH="7vh" maxH="7vh">
             <Header />
           </Flex>
           {isLogged && <Center>

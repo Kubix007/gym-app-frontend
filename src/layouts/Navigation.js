@@ -1,6 +1,9 @@
 import React from 'react';
 import {
+    Center,
     Flex,
+    theme,
+    Text,
 } from '@chakra-ui/react';
 
 
