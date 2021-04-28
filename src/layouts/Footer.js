@@ -9,10 +9,8 @@ import {
 
 const Footer = () => {
     return (
-        // bg="green"
-        <Stack>
-            {/* color="white" */}
-            <Text p={2} textAlign="center">FOOTER {<ColorModeSwitcher alignSelf="flex-end" />}</Text>
+        <Stack bg="green">
+            <Text color="white" p={2} textAlign="center">FOOTER {<ColorModeSwitcher alignSelf="flex-end" />}</Text>
         </Stack>
     );
 }
