@@ -20,6 +20,10 @@ const Calendarpage = () => {
                     plugins={[dayGridPlugin]}
                     initialView="dayGridMonth"
                     height="100%"
+                    events={[
+                        { title: 'event 1', date: '2021-04-27' },
+                        { title: 'event 2', date: '2021-04-29' }
+                    ]}
                 />
             </Box>
             <Box w="30%" bg="red.300" h="100%">
