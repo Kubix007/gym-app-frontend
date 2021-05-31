@@ -1,18 +1,38 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom'
-import HomePage from '../components/HomePage'
-import NewsPage from '../components/NewsPage';
-import CalendarPage from '../components/CalendarPage';
-import LoginPage from '../components/LoginPage';
+import HomePage from '../pages/HomePage'
+import NewsPage from '../pages/NewsPage';
+import CalendarPage from '../pages/CalendarPage';
+import LoginPage from '../pages/LoginPage';
+import { GuardProvider, GuardedRoute } from 'react-router-guards';
+import { IsLogged } from '../services/IsLogged';
 
+const requireLogin = (to, from, next) => {
+    if (to.meta.auth) {
+        if (IsLogged()) {
+            next();
+        }
+        next.redirect('/login');
+    } else if (to.meta.guestOnly) {
+        if (!IsLogged()) {
+            next();
+        }
+        next.redirect('/aktualnosci');
+    } else {
+        next();
+    }
+
+};
 
 const Page = () => {
     return (
         <>
-            <Route path="/" exact component={HomePage} />
-            <Route path="/aktualnosci" component={NewsPage} />
-            <Route path="/kalendarz" component={CalendarPage} />
-            <Route path="/login" component={LoginPage} />
+            <GuardProvider guards={[requireLogin]}>
+                <GuardedRoute path="/" exact component={HomePage} meta={{ guestOnly: true }} />
+                <GuardedRoute path="/aktualnosci" component={NewsPage} meta={{ auth: true }} />
+                <GuardedRoute path="/kalendarz" component={CalendarPage} meta={{ auth: true }} />
+                <GuardedRoute path="/login" component={LoginPage} meta={{ guestOnly: true }} />
+            </GuardProvider>
+
         </>
     );
 }

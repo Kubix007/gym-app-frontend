@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Route, Switch } from 'react-router-dom'
-import HeaderLoggedOut from '../components/HeaderLoggedOut'
-import HeaderLogged from '../components/HeaderLogged'
+import { Route } from 'react-router-dom'
+import HeaderLoggedOut from '../pages/HeaderLoggedOut'
+import HeaderLogged from '../pages/HeaderLogged'
 
 
 const Header = () => {

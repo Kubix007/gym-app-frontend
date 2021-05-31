@@ -13,9 +13,11 @@ import {
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
+import AuthService from "../services/authService";
 
-const LoginForm = () => {
-    const [email, setEmail] = useState('');
+
+const LoginForm = (props) => {
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
@@ -23,11 +25,24 @@ const LoginForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert(`Email: ${email} & Password: ${password}`);
         setShowPassword(false);
+        AuthService.login(username, password).then(
+            () => {
+                props.history.push("/aktualnosci");
+                window.location.reload();
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                console.log(resMessage);
 
+            }
+        );
     };
-
 
     return (
         <Flex width="full" align="center" justifyContent="center">
@@ -38,16 +53,16 @@ const LoginForm = () => {
                 <Box my={4} textAlign="left">
                     <form onSubmit={handleSubmit}>
                         <FormControl isRequired>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel>Nazwa użytkownika: </FormLabel>
                             <Input
-                                type="email"
-                                placeholder="test@test.com"
+                                type="text"
+                                placeholder="Username"
                                 size="lg"
-                                onChange={event => setEmail(event.currentTarget.value)}
+                                onChange={event => setUsername(event.currentTarget.value)}
                             />
                         </FormControl>
                         <FormControl isRequired mt={6}>
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>Hasło: </FormLabel>
                             <InputGroup>
                                 <Input
                                     type={showPassword ? 'text' : 'password'}
@@ -69,7 +84,7 @@ const LoginForm = () => {
                             width="full"
                             mt={4}
                         >
-                            Sign In
+                            Zaloguj się
                         </Button>
                     </form>
                 </Box>

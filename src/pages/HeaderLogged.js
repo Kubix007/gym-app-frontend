@@ -7,12 +7,18 @@ import {
 } from '@chakra-ui/react';
 
 import { NavLink } from 'react-router-dom'
+import authService from '../services/authService';
+
+const logout = () => {
+    authService.logout();
+}
 
 const list = [
     { name: "Aktualności", path: "/aktualnosci" },
     { name: "Kalendarz zajęć", path: "/kalendarz" },
     { name: "Członkowstwo", path: "/czlonkowstwo" },
     { name: "Kup karnet", path: "/karnet" },
+    { name: "Wyloguj się", path: "/", logout: { logout } }
 ]
 
 const HeaderLogged = () => {
@@ -21,7 +27,7 @@ const HeaderLogged = () => {
         <Grid templateColumns="repeat(3, 2fr)" flexBasis="100%" pl="60">
             <Stack>
                 <Center w="100%" h="100%">
-                    <NavLink to={item.path}>{item.name.toUpperCase()}</NavLink>
+                    <NavLink to={item.path} onClick={item.logout ? logout : null}>{item.name.toUpperCase()}</NavLink>
                 </Center>
             </Stack>
         </Grid>

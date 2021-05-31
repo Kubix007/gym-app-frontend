@@ -14,6 +14,7 @@ import Footer from '../layouts/Footer'
 
 function App() {
 
+  // eslint-disable-next-line no-unused-vars
   const [isLogged, setIsLogged] = useState(false);
 
   return (
@@ -28,7 +29,7 @@ function App() {
               <Navigation />
             </Flex>
           </Center>}
-          <Flex flex="1" position="relative" overflow="hidden">
+          <Flex flex="1" position="relative" overflow="hidden" justifyContent="center" p={3} overflowY="scroll">
             <Page />
           </Flex>
           <Footer />
