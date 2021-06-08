@@ -47,6 +47,14 @@ const postMembershipOrders = (name, surname, email, address, city, postalCode, p
     });
 }
 
+const getMembershipCurrentUser = (id) => {
+    return axios.get("http://localhost:8080/api/membershipOrder/" + id, { headers: authHeader() });
+}
+
+const getAllMembershipOrders = () => {
+    return axios.get("http://localhost:8080/api/membershipOrder/", { headers: authHeader() });
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getPublicContent,
@@ -55,4 +63,6 @@ export default {
     getNews,
     postNews,
     postMembershipOrders,
+    getMembershipCurrentUser,
+    getAllMembershipOrders,
 };
