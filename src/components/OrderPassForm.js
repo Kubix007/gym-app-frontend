@@ -124,7 +124,6 @@ const OrderPassForm = ({ price, numberOfMonths }) => {
                                         },
                                     })
                                     actions.setSubmitting(false)
-
                                     expirationDate = "";
                                 },
                                 (error) => {
@@ -232,7 +231,7 @@ const OrderPassForm = ({ price, numberOfMonths }) => {
 
                                     >
                                         Zamów
-              </Button>
+                                    </Button>
                                 </Center>
                             </Form>
                         </Box>

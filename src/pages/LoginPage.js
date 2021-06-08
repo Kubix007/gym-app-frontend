@@ -9,7 +9,9 @@ import {
     Button,
     InputGroup,
     InputRightElement,
-    Icon
+    Icon,
+    useToast,
+
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { LoggedUserRoleContext } from '../context/LoggedUserRoleContext';
@@ -25,6 +27,7 @@ const LoginForm = (props) => {
     const { loggedUserRole, setLoggedUserRole } = useContext(LoggedUserRoleContext);
     // eslint-disable-next-line no-unused-vars
     const { loggedUserId, setLoggedUserId } = useContext(LoggedUserIdContext);
+    const toastHttp = useToast()
 
 
 
@@ -38,6 +41,13 @@ const LoginForm = (props) => {
                 props.history.push("/aktualnosci");
                 setLoggedUserId(response.id);
                 setLoggedUserRole(response.roles[0]);
+                toastHttp({
+                    title: "Pomyślnie zalogowano",
+                    description: "Zostałeś zalogowany",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                })
             },
             (error) => {
                 const resMessage =
@@ -46,7 +56,13 @@ const LoginForm = (props) => {
                         error.response.data.message) ||
                     error.message ||
                     error.toString();
-                console.log(resMessage);
+                toastHttp({
+                    title: "Błąd logowania",
+                    description: resMessage,
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                })
 
             }
         );
@@ -87,7 +103,7 @@ const LoginForm = (props) => {
                         </FormControl>
                         <Button
                             type="submit"
-                            colorScheme="messenger"
+                            colorScheme="purple"
                             variant="solid"
                             width="full"
                             mt={4}

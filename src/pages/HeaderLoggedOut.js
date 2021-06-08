@@ -15,7 +15,7 @@ const HeaderLoggedOut = () => {
         <Flex flexBasis="100%" direction="row" alignItems="center">
             <Center w="100%">
                 <Text fontSize="4xl" paddingRight="70%" >SportSystem</Text>
-                <NavLink to="/login"><Button colorScheme="purple" variant="solid" size="lg" marginRight={3}>Zarejestruj się</Button></NavLink>
+                <NavLink to="/register"><Button colorScheme="purple" variant="solid" size="lg" marginRight={3}>Zarejestruj się</Button></NavLink>
                 <NavLink to="/login"><Button colorScheme="purple" variant="solid" size="lg">Zaloguj się</Button></NavLink>
             </Center>
         </Flex>

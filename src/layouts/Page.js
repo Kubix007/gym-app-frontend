@@ -5,6 +5,7 @@ import CalendarPage from '../pages/CalendarPage';
 import LoginPage from '../pages/LoginPage';
 import MembershipPage from '../pages/MembershipPage';
 import PassPage from '../pages/PassPage';
+import RegisterPage from '../pages/RegisterPage';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
 import { IsLogged } from '../services/IsLogged';
 
@@ -35,6 +36,7 @@ const Page = () => {
                 <GuardedRoute path="/czlonkowstwo" component={MembershipPage} meta={{ auth: true }} />
                 <GuardedRoute path="/karnet" component={PassPage} meta={{ auth: true }} />
                 <GuardedRoute path="/login" component={LoginPage} meta={{ guestOnly: true }} />
+                <GuardedRoute path="/register" component={RegisterPage} meta={{ guestOnly: true }} />
             </GuardProvider>
 
         </>

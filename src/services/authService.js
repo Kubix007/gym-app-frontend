@@ -19,6 +19,15 @@ const login = (username, password) => {
         });
 };
 
+const register = (username, email, password, role) => {
+    return axios.post(API_URL + "signup", {
+        username,
+        email,
+        password,
+        role,
+    });
+};
+
 const logout = () => {
     localStorage.removeItem("user");
 };
@@ -30,6 +39,7 @@ const getCurrentUser = () => {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     login,
+    register,
     logout,
     getCurrentUser,
 };
