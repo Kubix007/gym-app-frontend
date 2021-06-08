@@ -28,6 +28,25 @@ const postNews = (title, content) => {
     });
 }
 
+const postMembershipOrders = (name, surname, email, address, city, postalCode, phoneNumber, membership, startDate, expirationDate, userId, status) => {
+    return axios.post("http://localhost:8080/api/membershipOrder/", {
+        name,
+        surname,
+        email,
+        address,
+        city,
+        postalCode,
+        phoneNumber,
+        membership,
+        startDate,
+        expirationDate: expirationDate,
+        userId: userId,
+        status: status,
+    }, {
+        headers: authHeader()
+    });
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getPublicContent,
@@ -35,4 +54,5 @@ export default {
     getAdminBoard,
     getNews,
     postNews,
+    postMembershipOrders,
 };

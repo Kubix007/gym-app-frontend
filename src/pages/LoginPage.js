@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     Flex,
     Box,
@@ -12,14 +12,21 @@ import {
     Icon
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-
+import { LoggedUserRoleContext } from '../context/LoggedUserRoleContext';
 import AuthService from "../services/authService";
+import { LoggedUserIdContext } from '../context/LoggedUserIdContext';
 
 
 const LoginForm = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    // eslint-disable-next-line no-unused-vars
+    const { loggedUserRole, setLoggedUserRole } = useContext(LoggedUserRoleContext);
+    // eslint-disable-next-line no-unused-vars
+    const { loggedUserId, setLoggedUserId } = useContext(LoggedUserIdContext);
+
+
 
     const handlePasswordVisibility = () => setShowPassword(!showPassword);
 
@@ -27,9 +34,10 @@ const LoginForm = (props) => {
         event.preventDefault();
         setShowPassword(false);
         AuthService.login(username, password).then(
-            () => {
+            (response) => {
                 props.history.push("/aktualnosci");
-                window.location.reload();
+                setLoggedUserId(response.id);
+                setLoggedUserRole(response.roles[0]);
             },
             (error) => {
                 const resMessage =
@@ -48,7 +56,7 @@ const LoginForm = (props) => {
         <Flex width="full" align="center" justifyContent="center">
             <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg" >
                 <Box textAlign="center">
-                    <Heading>Login</Heading>
+                    <Heading>Zaloguj się</Heading>
                 </Box>
                 <Box my={4} textAlign="left">
                     <form onSubmit={handleSubmit}>
@@ -56,7 +64,7 @@ const LoginForm = (props) => {
                             <FormLabel>Nazwa użytkownika: </FormLabel>
                             <Input
                                 type="text"
-                                placeholder="Username"
+                                placeholder="Nazwa użytkownika"
                                 size="lg"
                                 onChange={event => setUsername(event.currentTarget.value)}
                             />

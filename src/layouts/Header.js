@@ -11,6 +11,8 @@ const Header = () => {
             <Route path="/" exact component={HeaderLoggedOut} />
             <Route path="/aktualnosci" component={HeaderLogged} />
             <Route path="/kalendarz" component={HeaderLogged} />
+            <Route path="/czlonkowstwo" component={HeaderLogged} />
+            <Route path="/karnet" component={HeaderLogged} />
         </>
     );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import UserService from '../services/userService';
 import ButtonAddNews from '../components/Buttons/ButtonAddNews';
 import {
@@ -12,11 +12,17 @@ import {
     Skeleton,
 } from '@chakra-ui/react';
 
+import { LoggedUserRoleContext } from '../context/LoggedUserRoleContext';
+
+
 const NewsPage = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [news, setNews] = useState();
     const [isLoaded, setIsLoaded] = useState(false);
+    // eslint-disable-next-line no-unused-vars
+    const { loggedUserRole, setLoggedUserRole } = useContext(LoggedUserRoleContext);
+
     let showNews = null;
 
     const handleOnChange = (e) => {
@@ -103,7 +109,7 @@ const NewsPage = () => {
         <div>
             <Skeleton h="5vh" w="100vh" p={5} isLoaded={isLoaded}>
                 <Center minW="100%">
-                    <ButtonAddNews
+                    {loggedUserRole === "ROLE_USER" ? null : <ButtonAddNews
                         name="Dodaj wpis"
                         input={newsAddInputs}
                         color="purple"
@@ -113,7 +119,7 @@ const NewsPage = () => {
                         setTitle={setTitle}
                         setContent={setContent}
                         setNews={setNews}
-                    />
+                    />}
                 </Center>
                 <Center minW="100%" maxH="30vh" p={10} display="grid" >
                     {news && showNews}
