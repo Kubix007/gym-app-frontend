@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import UserService from '../services/userService';
 import ButtonAddNews from '../components/Buttons/ButtonAddNews';
+import { LoggedUserRoleContext } from '../context/LoggedUserRoleContext';
 import {
     Center,
     List,
@@ -10,9 +11,11 @@ import {
     Input,
     Textarea,
     Skeleton,
+    Button,
+    useToast,
+
 } from '@chakra-ui/react';
 
-import { LoggedUserRoleContext } from '../context/LoggedUserRoleContext';
 
 
 const NewsPage = () => {
@@ -22,8 +25,14 @@ const NewsPage = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     // eslint-disable-next-line no-unused-vars
     const { loggedUserRole, setLoggedUserRole } = useContext(LoggedUserRoleContext);
+    const toastHttp = useToast()
 
     let showNews = null;
+
+    const handleClick = (e) => {
+        const id = e.target.id;
+        deleteNewsAPI(id);
+    }
 
     const handleOnChange = (e) => {
         const nameTarget = e.target.name
@@ -74,7 +83,7 @@ const NewsPage = () => {
 
     if (news) {
         showNews = news.map(news => (
-            <Center p={10} justifyContent="left">
+            <Center key={news.id} p={10} justifyContent="left">
                 <List key={news.id} spacing={3}>
                     <ListItem fontWeight="bold" fontSize="5xl">
                         {news.title}
@@ -85,15 +94,16 @@ const NewsPage = () => {
                     <ListItem fontSize="2xl">
                         {news.content}
                     </ListItem>
+                    {loggedUserRole === "ROLE_USER" ? null : <Button id={news.id} onClick={handleClick} colorScheme="red">Usuń</Button>}
                 </List>
             </Center>
         ))
     }
 
-    useEffect(() => {
+    const getNewsAPI = () => {
         UserService.getNews().then(
             (data) => {
-                console.log(data.data);
+                console.log("GET NEWS");
                 setTimeout(() => {
                     setNews(data.data);
                     setIsLoaded(true)
@@ -103,6 +113,29 @@ const NewsPage = () => {
                 console.log(error);
             }
         )
+    }
+
+    const deleteNewsAPI = (id) => {
+        UserService.deleteNews(id).then(
+            () => {
+                console.log("DELETE NEWS");
+                toastHttp({
+                    title: "Aktualność usunięta",
+                    description: "Aktualność została usunięta pomyślnie",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                })
+                getNewsAPI();
+            },
+            (error) => {
+                console.log(error);
+            }
+        )
+    }
+
+    useEffect(() => {
+        getNewsAPI();
     }, []);
 
     return (

@@ -19,6 +19,10 @@ const getNews = () => {
     return axios.get("http://localhost:8080/api/news/", { headers: authHeader() });
 }
 
+const deleteNews = (id) => {
+    return axios.delete("http://localhost:8080/api/news/" + id, { headers: authHeader() });
+}
+
 const postNews = (title, content) => {
     return axios.post("http://localhost:8080/api/news/", {
         title,
@@ -65,4 +69,6 @@ export default {
     postMembershipOrders,
     getMembershipCurrentUser,
     getAllMembershipOrders,
+    deleteNews,
+
 };
